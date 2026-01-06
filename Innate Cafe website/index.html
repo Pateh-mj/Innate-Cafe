@@ -92,118 +92,34 @@
     <p>&copy; 2026 Innate Vegan Café. All rights reserved.</p>
   </footer>
 
-  <script>
-  (function () {
-    /* CONTACT FORM: validation + send */
-    const form = document.getElementById('contactForm');
-    if (form) {
-      const submitBtn = document.getElementById('submitBtn');
-      const statusEl = document.getElementById('formStatus');
+<script>
+(function () {
+    // Selection of the toggle button and the menu
+    const navBtn = document.querySelector('.nav-toggle');
+    const navMenu = document.getElementById('navMenu');
 
-      function setFieldError(input, message) {
-        const errorEl = input.parentElement.querySelector('.field-error');
-        if (!errorEl) return;
-        errorEl.textContent = message || '';
-        input.setAttribute('aria-invalid', message ? 'true' : 'false');
-      }
+    if (navBtn && navMenu) {
+        navBtn.addEventListener('click', function (e) {
+            // 1. Toggle the 'open' class which shows the menu in CSS
+            navMenu.classList.toggle('open');
 
-      function clearFieldErrors() {
-        const errors = form.querySelectorAll('.field-error');
-        errors.forEach(e => (e.textContent = ''));
-        const inputs = form.querySelectorAll('input, textarea');
-        inputs.forEach(i => i.removeAttribute('aria-invalid'));
-      }
+            // 2. Update Accessibility (for screen readers and state)
+            const isExpanded = navMenu.classList.contains('open');
+            this.setAttribute('aria-expanded', isExpanded);
+        });
 
-      function showStatus(message, type = 'info') {
-        statusEl.textContent = message;
-        statusEl.className = 'form-status ' + (type === 'success' ? 'success' : type === 'error' ? 'error' : '');
-        statusEl.focus({ preventScroll: true });
-      }
-
-      function validate() {
-        clearFieldErrors();
-        let ok = true;
-        const name = form.querySelector('#name');
-        const email = form.querySelector('#email');
-        const message = form.querySelector('#message');
-
-        if (!name.value.trim()) {
-          setFieldError(name, 'Please enter your name.');
-          ok = false;
-        }
-        const emailVal = email.value.trim();
-        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
-        if (!emailVal) {
-          setFieldError(email, 'Please enter your email.');
-          ok = false;
-        } else if (!emailOk) {
-          setFieldError(email, 'Please enter a valid email address.');
-          ok = false;
-        }
-        if (!message.value.trim()) {
-          setFieldError(message, 'Please enter a message.');
-          ok = false;
-        }
-        return ok;
-      }
-
-      async function submitHandler(e) {
-        e.preventDefault();
-        if (!validate()) {
-          showStatus('Please fix the highlighted fields and try again.', 'error');
-          return;
-        }
-
-        submitBtn.disabled = true;
-        const originalBtnText = submitBtn.textContent;
-        submitBtn.textContent = 'Sending…';
-        showStatus('Sending message...', 'info');
-
-        const endpoint = form.dataset.endpoint && form.dataset.endpoint.trim();
-
-        try {
-          if (endpoint) {
-            const formData = new FormData(form);
-            const res = await fetch(endpoint, {
-              method: 'POST',
-              body: formData,
-              headers: { 'Accept': 'application/json' }
-            });
-
-            if (res.ok) {
-              form.reset();
-              showStatus('Thanks — your message was sent.', 'success');
-            } else {
-              let text = 'Submission failed. Please try again later.';
-              try {
-                const data = await res.json();
-                if (data && data.error) text = data.error;
-              } catch (err) {}
-              showStatus(text, 'error');
+        // 3. Close the menu if a user clicks outside of it (Great for mobile UX)
+        document.addEventListener('click', function (e) {
+            if (!navBtn.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('open');
+                navBtn.setAttribute('aria-expanded', 'false');
             }
-          } else {
-            form.reset();
-            showStatus('Thank you for your message — your satisfaction means much.', 'success');
-          }
-        } catch (err) {
-          console.error(err);
-          showStatus('Network error. Please try again later.', 'error');
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalBtnText;
-        }
-      }
-
-      form.addEventListener('submit', submitHandler);
-      form.addEventListener('input', (ev) => {
-        if (ev.target && (ev.target.tagName === 'INPUT' || ev.target.tagName === 'TEXTAREA')) {
-          setFieldError(ev.target, '');
-        }
-      });
+        });
     }
-  })();
-  </script>
+})();
+</script>
 </body>
               </html></html>
+
 
 
