@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Contact - Innate Café</title>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="Primary">
+        <div class="nav-brand">☕ Innate</div>
+        <button class="nav-toggle" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="hamburger" aria-hidden="true"></span>
+        </button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link active">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section class="contact-form">
+            <h2>Get in Touch</h2>
+            <p>Have questions? We'd love to hear from you. Reach out anytime!</p>
+            
+            <form id="contactForm" novalidate data-endpoint="">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required aria-required="true" />
+                    <small class="field-error" aria-live="polite"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required aria-required="true" />
+                    <small class="field-error" aria-live="polite"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+                    <small class="field-error" aria-live="polite"></small>
+                </div>
+
+                <button type="submit" id="submitBtn">Send Message</button>
+                <div id="formStatus" role="status" aria-live="polite" class="form-status" tabindex="-1"></div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Innate Vegan Café. All rights reserved.</p>
+    </footer>
+    <script>
+    (function () {
+        document.querySelectorAll('.nav-toggle').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const menuId = this.getAttribute('aria-controls');
+                const menu = document.getElementById(menuId);
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', String(!expanded));
+                if (menu) menu.classList.toggle('open');
+            });
+        });
+
+        const form = document.getElementById('contactForm');
+        if (form) {
+            const submitBtn = document.getElementById('submitBtn');
+            const statusEl = document.getElementById('formStatus');
+
+            function setFieldError(input, message) {
+                const errorEl = input.parentElement.querySelector('.field-error');
+                if (!errorEl) return;
+                errorEl.textContent = message || '';
+                input.setAttribute('aria-invalid', message ? 'true' : 'false');
+            }
+
+            function clearFieldErrors() {
+                const errors = form.querySelectorAll('.field-error');
+                errors.forEach(e => (e.textContent = ''));
+                const inputs = form.querySelectorAll('input, textarea');
+                inputs.forEach(i => i.removeAttribute('aria-invalid'));
+            }
+
+            function showStatus(message, type = 'info') {
+                statusEl.textContent = message;
+                statusEl.className = 'form-status ' + (type === 'success' ? 'success' : type === 'error' ? 'error' : '');
+                statusEl.focus({ preventScroll: true });
+            }
+
+            function validate() {
+                clearFieldErrors();
+                let ok = true;
+                const name = form.querySelector('#name');
+                const email = form.querySelector('#email');
+                const message = form.querySelector('#message');
+
+                if (!name.value.trim()) {
+                    setFieldError(name, 'Please enter your name.');
+                    ok = false;
+                }
+                const emailVal = email.value.trim();
+                const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+                if (!emailVal) {
+                    setFieldError(email, 'Please enter your email.');
+                    ok = false;
+                } else if (!emailOk) {
+                    setFieldError(email, 'Please enter a valid email address.');
+                    ok = false;
+                }
+                if (!message.value.trim()) {
+                    setFieldError(message, 'Please enter a message.');
+                    ok = false;
+                }
+                return ok;
+            }
+
+            async function submitHandler(e) {
+                e.preventDefault();
+                if (!validate()) {
+                    showStatus('Please fix the highlighted fields and try again.', 'error');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                const originalBtnText = submitBtn.textContent;
+                submitBtn.textContent = 'Sending…';
+                showStatus('Sending message...', 'info');
+
+                const endpoint = form.dataset.endpoint && form.dataset.endpoint.trim();
+
+                try {
+                    if (endpoint) {
+                        const formData = new FormData(form);
+                        const res = await fetch(endpoint, {
+                            method: 'POST',
+                            body: formData,
+                            headers: { 'Accept': 'application/json' }
+                        });
+
+                        if (res.ok) {
+                            form.reset();
+                            showStatus('Thanks — your message was sent.', 'success');
+                        } else {
+                            let text = 'Submission failed. Please try again later.';
+                            try {
+                                const data = await res.json();
+                                if (data && data.error) text = data.error;
+                            } catch (err) {}
+                            showStatus(text, 'error');
+                        }
+                    } else {
+                        form.reset();
+                        showStatus('Thank you for your message — your satisfaction means much.', 'success');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    showStatus('Network error. Please try again later.', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                }
+            }
+
+            form.addEventListener('submit', submitHandler);
+            form.addEventListener('input', (ev) => {
+                if (ev.target && (ev.target.tagName === 'INPUT' || ev.target.tagName === 'TEXTAREA')) {
+                    setFieldError(ev.target, '');
+                }
+            });
+        }
+    })();
+    </script>
+
+</body>
+</html>
+</body>
+</html>

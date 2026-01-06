@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>About - Innate Café</title>
+</head>
+<body> <nav class="navbar" role="navigation" aria-label="Primary">
+        <div class="nav-brand">☕ Innate</div>
+        <button class="nav-toggle" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="hamburger" aria-hidden="true"></span>
+        </button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link active">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <main class="about-main">
+        <section class="about-hero">
+            <img src="cafe-hero.jpg" alt="Innate Café main space" class="hero-image">
+            <div class="about-intro">
+                <h2>Welcome to Innate Café</h2>
+                <p>A plant-powered sanctuary celebrating exceptional vegan coffee, artisan pastries, and conscious community building.</p>
+            </div>
+        </section>
+
+        <section class="about-content">
+            <div class="content-grid">
+                <div class="about-card">
+                    <h3>What We Have</h3>
+                    <div class="card-images">
+                        <img src="coffee-beans.jpg" alt="Premium coffee beans">
+                        <img src="pastries.jpg" alt="Fresh pastries">
+                        <img src="cozy-space.jpg" alt="Cozy café space">
+                    </div>
+                    <p>A carefully curated space featuring:</p>
+                    <ul>
+                        <li>Premium, ethically sourced vegan coffee beans</li>
+                        <li>Freshly baked plant-based pastries daily</li>
+                        <li>Sustainable practices throughout</li>
+                    </ul>
+                </div>
+
+                <div class="about-card">
+                    <h3>What We're Doing Now</h3>
+                    <div class="card-images">
+                        <img src="menu-alert.jpg" alt="Current menu offerings">
+                        <img src="coffee-recipe.jpg" alt="Today's activity">
+                        <img src="community.jpg" alt="Community connection">
+                    </div>
+                    <p>Our present focus:</p>
+                    <ul>
+                        <li>Expanding our seasonal menu</li>
+                        <li>Hosting weekly community gatherings</li>
+                        <li>Collaborating with local artists</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section class="about-mission">
+                <h2>Our Mission</h2>
+                <p>To provide the finest plant-powered coffee experience while building vibrant, inclusive community spaces.</p>
+            </section>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2026 Innate Vegan Café. All rights reserved.</p>
+    </footer>
+
+    <script>
+    (function () {
+        document.querySelectorAll('.nav-toggle').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const menuId = this.getAttribute('aria-controls');
+                const menu = document.getElementById(menuId);
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', String(!expanded));
+                if (menu) menu.classList.toggle('open');
+            });
+        });
+    })();
+    </script>
+</body>
+</html>
