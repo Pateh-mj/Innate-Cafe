@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Innate Vegan Café</title>
+</head>
+<body>
+    <header>
+        <h1>☕ Innate Café</h1>
+        <p class="slogan">The Elemental Revolution ¬ Regain the Vegan Experience</p>
+    </header>
+    
+    <main>
+        <section class="about">
+            <h2>About Us</h2>
+            <p>At Innate Café, every cup and plate is 100% plant-powered, and powdered if you so wish.
+                 We craft bold, delicious coffee and seasonal, Savoury pastries using sustainably sourced beans and local ingredients. Our cozy space celebrates community, creativity, and conscious choices—come for the flavor, stay for the kindness.</p>
+        </section>
+        
+        <section class="contact-form">
+            <h2>Get in Touch</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.querySelector('form');
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = form.querySelector('#name').value.trim();
+        const email = form.querySelector('#email').value.trim();
+        const message = form.querySelector('#message').value.trim();
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+        if (!name || !emailOk || !message) {
+          alert('Please complete all fields and provide a valid email.');
+          return;
+        }
+
+        //This is intended for commenting demonstrations, and as some optional Js; set to a Formspree endpoint or other URL
+
+        /*const endpoint = form.getAttribute('data-endpoint');
+
+        if (endpoint) {
+          const data = new FormData(form);
+          try {
+            const res = await fetch(endpoint, {
+              method: 'POST',
+              body: data,
+              headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+              form.innerHTML = '<p class="success">Thanks — your message was sent.</p>';
+            } else {
+              alert('Submission failed. Please try again.');
+            }
+          } catch (err) {
+            alert('Network error. Please try later.');
+          }*/
+
+         else {
+          form.innerHTML = '<p class="success">Thank you for your message — your satisfaction means much.</p>'; //no endpoint is configured.
+        }
+      });
+    });
+    </script>
+
+<footer>
+    <p>&copy; 2026 Innate Vegan Café. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
