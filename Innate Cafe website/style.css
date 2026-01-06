@@ -94,3 +94,149 @@
             width: 100%;
             bottom: 0;
         }
+
+        /* Tablet and Medium Devices (768px and below) */
+        @media (max-width: 768px) {
+            header {
+                max-width: 95%;
+                padding: 1.5rem 1rem;
+                margin: 1rem auto;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p.slogan {
+                font-size: 0.95rem;
+            }
+
+            main {
+                max-width: 95%;
+                margin: 1rem auto;
+                padding: 1.5rem 1rem;
+            }
+
+            .about p {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+            label {
+                font-size: 0.9rem;
+            }
+
+            input, textarea {
+                padding: 0.6rem;
+                font-size: 1rem;
+            }
+
+            button {
+                padding: 0.65rem 1.25rem;
+                font-size: 0.95rem;
+                width: 100%;
+            }
+        }
+
+        /* Mobile Devices (480px and below) */
+        @media (max-width: 480px) {
+            body {
+                background-attachment: fixed;
+            }
+
+            header {
+                max-width: 100%;
+                padding: 1rem 0.75rem;
+                margin: 0.5rem 0;
+                border-radius: 0;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            header p.slogan {
+                font-size: 0.85rem;
+                margin-top: 0.5rem;
+            }
+
+            main {
+                max-width: 100%;
+                margin: 0.5rem 0;
+                padding: 1rem 0.75rem;
+                border-radius: 0;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .about {
+                margin-bottom: 1.5rem;
+            }
+
+            .about p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            .contact-form {
+                margin-top: 1rem;
+            }
+
+            .form-group {
+                margin-bottom: 0.75rem;
+            }
+
+            label {
+                font-size: 0.85rem;
+                margin-bottom: 0.4rem;
+            }
+
+            input, textarea {
+                padding: 0.5rem;
+                font-size: 16px;
+                border-radius: 3px;
+            }
+
+            textarea {
+                min-height: 100px;
+            }
+
+            button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                width: 100%;
+            }
+
+            footer {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.85rem;
+                border-radius: 0;
+            }
+        }
+
+        /* Small Mobile Devices (320px and below) */
+        @media (max-width: 320px) {
+            header h1 {
+                font-size: 1.25rem;
+            }
+
+            header p.slogan {
+                font-size: 0.75rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            .about p {
+                font-size: 0.85rem;
+            }
+
+            input, textarea {
+                padding: 0.4rem;
+                font-size: 16px;
+            }
+        }
