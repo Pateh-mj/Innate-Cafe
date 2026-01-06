@@ -1,96 +1,263 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Innate Vegan Café</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Innate Vegan Café</title>
 </head>
 <body>
-    <header>
-        <h1>☕ Innate Café</h1>
-        <p class="slogan">The Elemental Revolution ¬ Regain the Vegan Experience</p>
-    </header>
-    
-    <main>
-        <section class="about">
-            <h2>About Us</h2>
-            <p>At Innate Café, every cup and plate is 100% plant-powered, and powdered if you so wish.
-                 We craft bold, delicious coffee and seasonal, Savoury pastries using sustainably sourced beans and local ingredients. Our cozy space celebrates community, creativity, and conscious choices—come for the flavor, stay for the kindness.</p>
-        </section>
-        
-        <section class="contact-form">
-            <h2>Get in Touch</h2>
-            <form>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                
-                <button type="submit">Send Message</button>
-            </form>
-        </section>
-    </main>
+  <header>
+    <div class="header-inner">
+      <h1>☕ Innate Café</h1>
+      <p class="slogan">The Elemental Revolution ¬ Regain the Vegan Experience</p>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const form = document.querySelector('form');
-      if (!form) return;
+      <!-- Primary navigation -->
+      <nav class="primary-nav" role="navigation" aria-label="Primary">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home" data-target="home" class="nav-link">Home</a></li>
+          <li><a href="#about" data-target="about" class="nav-link">About</a></li>
+          <li><a href="#contact" data-target="contact" class="nav-link">Contact</a></li>
+        </ul>
+        <!-- sliding indicator -->
+        <div class="nav-indicator" id="navIndicator" aria-hidden="true"></div>
+      </nav>
+    </div>
+  </header>
 
-      form.addEventListener('submit', async (e) => {
+  <main id="home">
+    <section class="about" id="about">
+      <h2>About Us</h2>
+      <p>
+        At Innate Café, every cup and plate is 100% plant-powered, and powdered if you so
+        wish. We craft bold, delicious coffee and seasonal, savoury pastries using sustainably
+        sourced beans and local ingredients. Our cozy space celebrates community, creativity,
+        and conscious choices—come for the flavor, stay for the kindness.
+      </p>
+    </section>
+
+    <section class="contact-form" id="contact">
+      <h2>Get in Touch</h2>
+
+      <!--
+        Set data-endpoint to your Formspree or other endpoint URL to send real submissions.
+        Example: <form data-endpoint="https://formspree.io/f/your-id">
+      -->
+      <form id="contactForm" novalidate data-endpoint="">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required aria-required="true" />
+          <small class="field-error" aria-live="polite"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required aria-required="true" />
+          <small class="field-error" aria-live="polite"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+          <small class="field-error" aria-live="polite"></small>
+        </div>
+
+        <button type="submit" id="submitBtn">Send Message</button>
+
+        <!-- Accessible status area for form-level messages -->
+        <div id="formStatus" role="status" aria-live="polite" class="form-status" tabindex="-1"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Innate Vegan Café. All rights reserved.</p>
+  </footer>
+
+  <script>
+  (function () {
+    /* NAV: sliding indicator + active-link-on-scroll + smooth scroll handling */
+    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+    const navIndicator = document.getElementById('navIndicator');
+    const sections = navLinks.map(link => document.getElementById(link.dataset.target));
+    let activeLink = null;
+
+    function updateIndicator(el) {
+      if (!el) {
+        navIndicator.style.width = '0';
+        navIndicator.style.transform = 'translateX(0)';
+        return;
+      }
+      const rect = el.getBoundingClientRect();
+      const parentRect = el.closest('.primary-nav').getBoundingClientRect();
+      const left = rect.left - parentRect.left;
+      navIndicator.style.width = rect.width + 'px';
+      navIndicator.style.transform = `translateX(${left}px)`;
+    }
+
+    function setActiveLink(linkEl, setAria = true) {
+      if (activeLink === linkEl) return;
+      navLinks.forEach(l => l.classList.remove('active'));
+      if (linkEl) linkEl.classList.add('active');
+      activeLink = linkEl;
+      updateIndicator(linkEl);
+      if (setAria) {
+        navLinks.forEach(l => l.removeAttribute('aria-current'));
+        if (linkEl) linkEl.setAttribute('aria-current', 'page');
+      }
+    }
+
+    // Smooth scroll on click (browser support is widespread; CSS also includes smooth behavior)
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
         e.preventDefault();
+        const targetId = link.dataset.target;
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveLink(link, true);
+        // update URL hash without jumping
+        history.replaceState(null, '', '#' + targetId);
+      });
+    });
 
-        const name = form.querySelector('#name').value.trim();
-        const email = form.querySelector('#email').value.trim();
-        const message = form.querySelector('#message').value.trim();
-        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    // Update active link based on scroll position (simple intersection-style detection)
+    function onScroll() {
+      const offset = window.innerHeight * 0.35; // trigger earlier than center
+      let found = null;
+      for (const link of navLinks) {
+        const sec = document.getElementById(link.dataset.target);
+        if (!sec) continue;
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= offset && rect.bottom > 80) {
+          found = link;
+          break;
+        }
+      }
+      setActiveLink(found, true);
+    }
 
-        if (!name || !emailOk || !message) {
-          alert('Please complete all fields and provide a valid email.');
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => updateIndicator(activeLink || navLinks[0]));
+    // initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // set first active (Home) unless hash targets another
+      const hash = location.hash.replace('#', '');
+      const initial = navLinks.find(l => l.dataset.target === hash) || navLinks[0];
+      setActiveLink(initial, true);
+      // position indicator after fonts/layout
+      setTimeout(() => updateIndicator(activeLink || initial), 80);
+      onScroll();
+    });
+
+    /* CONTACT FORM: validation + send (unchanged behavior conceptually) */
+    const form = document.getElementById('contactForm');
+    if (form) {
+      const submitBtn = document.getElementById('submitBtn');
+      const statusEl = document.getElementById('formStatus');
+
+      function setFieldError(input, message) {
+        const errorEl = input.parentElement.querySelector('.field-error');
+        if (!errorEl) return;
+        errorEl.textContent = message || '';
+        input.setAttribute('aria-invalid', message ? 'true' : 'false');
+      }
+
+      function clearFieldErrors() {
+        const errors = form.querySelectorAll('.field-error');
+        errors.forEach(e => (e.textContent = ''));
+        const inputs = form.querySelectorAll('input, textarea');
+        inputs.forEach(i => i.removeAttribute('aria-invalid'));
+      }
+
+      function showStatus(message, type = 'info') {
+        statusEl.textContent = message;
+        statusEl.className = 'form-status ' + (type === 'success' ? 'success' : type === 'error' ? 'error' : '');
+        statusEl.focus({ preventScroll: true });
+      }
+
+      function validate() {
+        clearFieldErrors();
+        let ok = true;
+        const name = form.querySelector('#name');
+        const email = form.querySelector('#email');
+        const message = form.querySelector('#message');
+
+        if (!name.value.trim()) {
+          setFieldError(name, 'Please enter your name.');
+          ok = false;
+        }
+        const emailVal = email.value.trim();
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+        if (!emailVal) {
+          setFieldError(email, 'Please enter your email.');
+          ok = false;
+        } else if (!emailOk) {
+          setFieldError(email, 'Please enter a valid email address.');
+          ok = false;
+        }
+        if (!message.value.trim()) {
+          setFieldError(message, 'Please enter a message.');
+          ok = false;
+        }
+        return ok;
+      }
+
+      async function submitHandler(e) {
+        e.preventDefault();
+        if (!validate()) {
+          showStatus('Please fix the highlighted fields and try again.', 'error');
           return;
         }
 
-        //This is intended for commenting demonstrations, and as some optional Js; set to a Formspree endpoint or other URL
+        submitBtn.disabled = true;
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending…';
+        showStatus('Sending message...', 'info');
 
-        /*const endpoint = form.getAttribute('data-endpoint');
+        const endpoint = form.dataset.endpoint && form.dataset.endpoint.trim();
 
-        if (endpoint) {
-          const data = new FormData(form);
-          try {
+        try {
+          if (endpoint) {
+            const formData = new FormData(form);
             const res = await fetch(endpoint, {
               method: 'POST',
-              body: data,
+              body: formData,
               headers: { 'Accept': 'application/json' }
             });
-            if (res.ok) {
-              form.innerHTML = '<p class="success">Thanks — your message was sent.</p>';
-            } else {
-              alert('Submission failed. Please try again.');
-            }
-          } catch (err) {
-            alert('Network error. Please try later.');
-          }*/
 
-         else {
-          form.innerHTML = '<p class="success">Thank you for your message — your satisfaction means much.</p>'; //no endpoint is configured.
+            if (res.ok) {
+              form.reset();
+              showStatus('Thanks — your message was sent.', 'success');
+            } else {
+              let text = 'Submission failed. Please try again later.';
+              try {
+                const data = await res.json();
+                if (data && data.error) text = data.error;
+              } catch (err) {}
+              showStatus(text, 'error');
+            }
+          } else {
+            form.reset();
+            showStatus('Thank you for your message — your satisfaction means much.', 'success');
+          }
+        } catch (err) {
+          console.error(err);
+          showStatus('Network error. Please try again later.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
+      }
+
+      form.addEventListener('submit', submitHandler);
+      form.addEventListener('input', (ev) => {
+        if (ev.target && (ev.target.tagName === 'INPUT' || ev.target.tagName === 'TEXTAREA')) {
+          setFieldError(ev.target, '');
         }
       });
-    });
-    </script>
-
-<footer>
-    <p>&copy; 2026 Innate Vegan Café. All rights reserved.</p>
-</footer>
-
+    }
+  })();
+  </script>
 </body>
-</html>
+              </html></html>
