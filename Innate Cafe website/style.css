@@ -546,3 +546,57 @@
         grid-template-columns: 1fr; /* Stack images if the phone is too thin */
     }
 }
+
+
+/* Optimized Mobile Fix for Smartphones */
+@media (max-width: 480px) {
+    body {
+        background-attachment: scroll; /* Prevents lag on mobile browsers */
+    }
+
+    /* Force all containers to stay within the screen width */
+    main, .home-main, .about-main, .about-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 1rem 15px !important; /* Standard mobile gutter */
+        margin: 0 auto !important;
+        overflow-x: hidden; /* Prevent horizontal wobbling */
+    }
+
+    /* Fix the About Hero overlap so it doesn't push off-screen */
+    .about-intro {
+        margin-top: -30px !important;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        padding: 1.5rem !important;
+        width: auto !important; /* Let margins define the width */
+    }
+
+    .hero-image {
+        height: 220px !important; /* Scale down image height for phones */
+        border-radius: 8px;
+    }
+
+    /* Stack grid items vertically */
+    .content-grid, .home-features, .events-list {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+
+    /* Fix images inside cards from overflowing */
+    .card-images {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 5px !important;
+    }
+
+    .card-images img {
+        height: 60px !important; /* Small enough for 320px screens */
+    }
+
+    /* Adjust Gallery for mobile */
+    .gallery-grid {
+        grid-template-columns: 1fr !important; /* Stack gallery images */
+    }
+}
