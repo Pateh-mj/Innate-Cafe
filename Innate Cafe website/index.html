@@ -7,66 +7,86 @@
   <title>Innate Vegan Café</title>
 </head>
 <body>
-  <header>
-    <div class="header-inner">
-      <h1>☕ Innate Café</h1>
-      <p class="slogan">The Elemental Revolution ¬ Regain the Vegan Experience</p>
+  
+    <nav class="navbar" role="navigation" aria-label="Primary">
+      <div class="nav-brand">☕ Innate</div>
+      <button class="nav-toggle" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="hamburger" aria-hidden="true"></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
 
-      <!-- Primary navigation -->
-      <nav class="primary-nav" role="navigation" aria-label="Primary">
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#home" data-target="home" class="nav-link">Home</a></li>
-          <li><a href="#about" data-target="about" class="nav-link">About</a></li>
-          <li><a href="#contact" data-target="contact" class="nav-link">Contact</a></li>
-        </ul>
-        <!-- sliding indicator -->
-        <div class="nav-indicator" id="navIndicator" aria-hidden="true"></div>
-      </nav>
-    </div>
-  </header>
-
-  <main id="home">
-    <section class="about" id="about">
-      <h2>About Us</h2>
-      <p>
-        At Innate Café, every cup and plate is 100% plant-powered, and powdered if you so
-        wish. We craft bold, delicious coffee and seasonal, savoury pastries using sustainably
-        sourced beans and local ingredients. Our cozy space celebrates community, creativity,
-        and conscious choices—come for the flavor, stay for the kindness.
-      </p>
+  <main id="home" class="home-main">
+    <!-- Home Hero: quick brand & CTA -->
+    <section class="home-hero">
+      <div class="hero-inner">
+        <h2>The Elemental Revolution ¬ Regain the Vegan Experience</h2>
+        <p class="hero-sub">Exceptional vegan coffee, seasonal pastries, and a warm community space.</p>
+        <div class="hero-ctas">
+          <a href="about.html" class="btn primary">Learn More</a>
+          <a href="contact.html" class="btn outline">Contact Us</a>
+        </div>
+      </div>
     </section>
 
-    <section class="contact-form" id="contact">
-      <h2>Get in Touch</h2>
+    <!-- Quick Features: glimpse of offerings -->
+    <section class="home-features">
+      <div class="feature">
+        <h3>Coffee</h3>
+        <p>Single origin, ethically roasted beans — served expertly.</p>
+      </div>
+      <div class="feature">
+        <h3>Pastries</h3>
+        <p>Daily-baked, plant-based treats made from local ingredients.</p>
+      </div>
+      <div class="feature">
+        <h3>Community</h3>
+        <p>Weekly events, tastings, and a welcoming space for everyone.</p>
+      </div>
+    </section>
 
-      <!--
-        Set data-endpoint to your Formspree or other endpoint URL to send real submissions.
-        Example: <form data-endpoint="https://formspree.io/f/your-id">
-      -->
-      <form id="contactForm" novalidate data-endpoint="">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required aria-required="true" />
-          <small class="field-error" aria-live="polite"></small>
-        </div>
+    <!-- Mini About: short intro linking to about page -->
+    <section class="home-about">
+      <h2>Our Story in Brief</h2>
+      <p>A small neighborhood café with a big heart: sustainability, craftsmanship, and community are at our core. <a href="about.html">Read more →</a></p>
+    </section>
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required aria-required="true" />
-          <small class="field-error" aria-live="polite"></small>
-        </div>
+    <!-- Small gallery: placeholders for quick visual glimpse -->
+    <section class="home-gallery">
+      <div class="gallery-grid">
+        <img src="pastries.jpg" alt="Coffee and pastry">
+        <img src="community.jpg" alt="Baristas at work">
+        <img src="community-event.jpg" alt="Community event">
+      </div>
+    </section>
 
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
-          <small class="field-error" aria-live="polite"></small>
-        </div>
+    <!-- Events / What's on -->
+    <section class="home-events">
+      <h2>What's On</h2>
+      <div class="events-list">
+        <article class="event">
+          <h4>Weekend Coffee Tasting</h4>
+          <p>Sunday 10AM — Learn about single origins and brewing tips.</p>
+        </article>
+        <article class="event">
+          <h4>Community Open Mic</h4>
+          <p>Tuesday 7PM — Bring your creativity and meet neighbors.</p>
+        </article>
+      </div>
+    </section>
 
-        <button type="submit" id="submitBtn">Send Message</button>
-
-        <!-- Accessible status area for form-level messages -->
-        <div id="formStatus" role="status" aria-live="polite" class="form-status" tabindex="-1"></div>
-      </form>
+    <!-- CTA / Featured Menu snippet -->
+    <section class="home-cta">
+      <div class="cta-inner">
+        <h3>Featured This Week</h3>
+        <p>Cardamom Latte & Lemon Poppyseed Scone — available for a limited time.</p>
+        <br>
+        <a href="contact.html" class="btn primary">Reserve a Table</a>
+      </div>
     </section>
   </main>
 
@@ -76,81 +96,53 @@
 
   <script>
   (function () {
-    /* NAV: sliding indicator + active-link-on-scroll + smooth scroll handling */
-    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
-    const navIndicator = document.getElementById('navIndicator');
-    const sections = navLinks.map(link => document.getElementById(link.dataset.target));
-    let activeLink = null;
+    /* NAV TOGGLE: small accessible menu with close-on-outside, link, and Escape */
+    (function setupNavToggle() {
+      const toggles = Array.from(document.querySelectorAll('.nav-toggle'));
+      toggles.forEach(btn => {
+        const menuId = btn.getAttribute('aria-controls');
+        const menu = document.getElementById(menuId);
 
-    function updateIndicator(el) {
-      if (!el) {
-        navIndicator.style.width = '0';
-        navIndicator.style.transform = 'translateX(0)';
-        return;
-      }
-      const rect = el.getBoundingClientRect();
-      const parentRect = el.closest('.primary-nav').getBoundingClientRect();
-      const left = rect.left - parentRect.left;
-      navIndicator.style.width = rect.width + 'px';
-      navIndicator.style.transform = `translateX(${left}px)`;
-    }
-
-    function setActiveLink(linkEl, setAria = true) {
-      if (activeLink === linkEl) return;
-      navLinks.forEach(l => l.classList.remove('active'));
-      if (linkEl) linkEl.classList.add('active');
-      activeLink = linkEl;
-      updateIndicator(linkEl);
-      if (setAria) {
-        navLinks.forEach(l => l.removeAttribute('aria-current'));
-        if (linkEl) linkEl.setAttribute('aria-current', 'page');
-      }
-    }
-
-    // Smooth scroll on click (browser support is widespread; CSS also includes smooth behavior)
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.dataset.target;
-        const target = document.getElementById(targetId);
-        if (!target) return;
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setActiveLink(link, true);
-        // update URL hash without jumping
-        history.replaceState(null, '', '#' + targetId);
-      });
-    });
-
-    // Update active link based on scroll position (simple intersection-style detection)
-    function onScroll() {
-      const offset = window.innerHeight * 0.35; // trigger earlier than center
-      let found = null;
-      for (const link of navLinks) {
-        const sec = document.getElementById(link.dataset.target);
-        if (!sec) continue;
-        const rect = sec.getBoundingClientRect();
-        if (rect.top <= offset && rect.bottom > 80) {
-          found = link;
-          break;
+        function open() {
+          btn.setAttribute('aria-expanded', 'true');
+          if (menu) menu.classList.add('open');
+          document.addEventListener('click', onDocClick);
+          document.addEventListener('keydown', onKeyDown);
         }
-      }
-      setActiveLink(found, true);
-    }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => updateIndicator(activeLink || navLinks[0]));
-    // initialize
-    document.addEventListener('DOMContentLoaded', () => {
-      // set first active (Home) unless hash targets another
-      const hash = location.hash.replace('#', '');
-      const initial = navLinks.find(l => l.dataset.target === hash) || navLinks[0];
-      setActiveLink(initial, true);
-      // position indicator after fonts/layout
-      setTimeout(() => updateIndicator(activeLink || initial), 80);
-      onScroll();
-    });
+        function close() {
+          btn.setAttribute('aria-expanded', 'false');
+          if (menu) menu.classList.remove('open');
+          document.removeEventListener('click', onDocClick);
+          document.removeEventListener('keydown', onKeyDown);
+        }
 
-    /* CONTACT FORM: validation + send (unchanged behavior conceptually) */
+        function toggle() {
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          if (expanded) close(); else open();
+        }
+
+        function onDocClick(e) {
+          if (!menu) return;
+          if (menu.contains(e.target) || btn.contains(e.target)) return;
+          close();
+        }
+
+        function onKeyDown(e) {
+          if (e.key === 'Escape') close();
+        }
+
+        // close when a link inside is clicked
+        if (menu) menu.addEventListener('click', (ev) => {
+          const a = ev.target.closest('a');
+          if (a) close();
+        });
+
+        btn.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
+      });
+    })();
+
+    /* CONTACT FORM: validation + send */
     const form = document.getElementById('contactForm');
     if (form) {
       const submitBtn = document.getElementById('submitBtn');
@@ -261,3 +253,4 @@
   </script>
 </body>
               </html></html>
+
