@@ -7,15 +7,17 @@
   <title>Innate Vegan Café</title>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-brand">☕ Innate Café ¬</div>
-    <ul class="nav-menu">
-      <li><a href="index.html" class="nav-link active">Home</a></li>
-      <li><a href="about.html" class="nav-link">About</a></li>
-      <li><a href="contact.html" class="nav-link">Contact</a></li>
-    </ul>
-  </nav>
-
+  <nav class="navbar" role="navigation" aria-label="Primary">
+        <div class="nav-brand">☕ Innate</div>
+        <button class="nav-toggle" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="hamburger" aria-hidden="true"></span>
+        </button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link active">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
   <main id="home" class="home-main">
     <!-- Home Hero: quick brand & CTA -->
     <section class="home-hero">
@@ -203,4 +205,5 @@
   </script>
 </body>
               </html></html>
+
 
