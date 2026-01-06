@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>About - Innate Café</title>
+</head>
+    
+    <main class="about-main">
+        <div class="nav-brand">☕ Innate</div>
+        <button class="nav-toggle" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="hamburger" aria-hidden="true"></span>
+        </button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link active">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <main class="about-main">
+        <section class="about-hero">
+            <img src="cafe-hero.jpg" alt="Innate Café main space" class="hero-image">
+            <div class="about-intro">
+                <h2>Welcome to Innate Café</h2>
+                <p>A plant-powered sanctuary celebrating exceptional vegan coffee, artisan pastries, and conscious community building.</p>
+            </div>
+        </section>
+
+        <section class="about-content">
+            <div class="content-grid">
+                <!-- What We Have -->
+                <div class="about-card">
+                    <h3>What We Have</h3>
+                    <div class="card-images">
+                        <img src="coffee-beans.jpg" alt="Premium coffee beans">
+                        <img src="pastries.jpg" alt="Fresh pastries">
+                        <img src="cozy-space.jpg" alt="Cozy café space">
+                    </div>
+                    <p>A carefully curated space featuring:</p>
+                    <ul>
+                        <li>Premium, ethically sourced vegan coffee beans</li>
+                        <li>Freshly baked plant-based pastries daily</li>
+                        <li>Warm, inviting community space</li>
+                        <li>Sustainable practices throughout</li>
+                    </ul>
+                </div>
+
+                <!-- What We're Doing -->
+                <div class="about-card">
+                    <h3>What We're Doing Now</h3>
+                    <div class="card-images">
+                        <img src="menu-alert.jpg" alt="Current menu offerings">
+                        <img src="coffee-recipe.jpg" alt="Today's activity">
+                        <img src="community.jpg" alt="Community connection">
+                    </div>
+                    <p>Our present focus:</p>
+                    <ul>
+                        <li>Expanding our seasonal menu</li>
+                        <li>Hosting weekly community gatherings</li>
+                        <li>Collaborating with local artists</li>
+                        <li>Creating inclusive spaces for all</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section class="about-mission">
+                <h2>Our Mission</h2>
+                <p>To provide the finest plant-powered coffee experience while building vibrant, inclusive community spaces where sustainability, creativity, and conscious choices thrive.</p>
+            </section>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2026 Innate Vegan Café. All rights reserved.</p>
+    </footer>
+    <script>
+    (function () {
+        // Enhanced nav toggle: close on outside click, link click, and Escape
+        const btn = document.querySelector('.nav-toggle');
+        if (!btn) return;
+        const menuId = btn.getAttribute('aria-controls');
+        const menu = document.getElementById(menuId);
+
+        function open() { btn.setAttribute('aria-expanded','true'); if (menu) menu.classList.add('open'); document.addEventListener('click', onDocClick); document.addEventListener('keydown', onKey); }
+        function close() { btn.setAttribute('aria-expanded','false'); if (menu) menu.classList.remove('open'); document.removeEventListener('click', onDocClick); document.removeEventListener('keydown', onKey); }
+        function toggle() { (btn.getAttribute('aria-expanded')==='true')?close():open(); }
+
+        function onDocClick(e){ if (!menu) return; if (menu.contains(e.target) || btn.contains(e.target)) return; close(); }
+        function onKey(e){ if (e.key==='Escape') close(); }
+
+        if (menu) menu.addEventListener('click', (ev)=>{ if (ev.target.closest('a')) close(); });
+        btn.addEventListener('click', (e)=>{ e.stopPropagation(); toggle(); });
+    })();
+    </script>
+</body>
+</html>
