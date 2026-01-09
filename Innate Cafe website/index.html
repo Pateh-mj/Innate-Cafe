@@ -1,125 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="style.css" />
-  <title>Innate Vegan Café</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Innate | Vegan Café</title>
 </head>
 <body>
-  <nav class="navbar" role="navigation" aria-label="Primary">
-        <div class="nav-brand">☕ Innate</div>
-        <button class="nav-toggle" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="hamburger" aria-hidden="true"></span>
-        </button>
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="index.html" class="nav-link">Home</a></li>
-            <li><a href="about.html" class="nav-link active">About</a></li>
-            <li><a href="contact.html" class="nav-link">Contact</a></li>
-        </ul>
-    </nav>
-  <main id="home" class="home-main">
-    <!-- Home Hero: quick brand & CTA -->
-    <section class="home-hero">
-      <div class="hero-inner">
-        <h2>The Elemental Revolution ¬ Regain the Vegan Experience</h2>
-        <p class="hero-sub">Exceptional vegan coffee, seasonal pastries, and a warm community space.</p>
-        <div class="hero-ctas">
-          <a href="about.html" class="btn primary">Learn More</a>
-          <a href="contact.html" class="btn outline">Contact Us</a>
+
+<nav class="navbar">
+    <div class="nav-brand">Innate<span>.</span></div>
+    <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section class="hero">
+        <div class="hero-content">
+            <p style="color: #cf870b; font-weight: bold; letter-spacing: 3px;">2026</p>
+            <h1>The Elemental Revolution ¬ <br><span>Regain the Vegan Experience.</span></h1>
+            <p>Exceptional vegan coffee, seasonal pastries, and a warm community space.</p>
+<br><br>
+        <btn><a href="contact.html">Reserve a Table</a></btn>
+        <btn><a href="about.html">Know More About Us</a></btn>
+
         </div>
-      </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1000&q=80" alt="Cafe Ritual">
+        </div>
+
     </section>
 
-    <!-- Quick Features: glimpse of offerings -->
-    <section class="home-features">
-      <div class="feature">
-        <h3>Coffee</h3>
-        <p>Single origin, ethically roasted beans — served expertly.</p>
-      </div>
-      <div class="feature">
-        <h3>Pastries</h3>
-        <p>Daily-baked, plant-based treats made from local ingredients.</p>
-      </div>
-      <div class="feature">
-        <h3>Community</h3>
-        <p>Weekly events, tastings, and a welcoming space for everyone.</p>
-      </div>
+    <section class="reveal-section">
+        <div class="reveal-img">
+            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" alt="Artisan Bread">
+        </div>
+        <div class="reveal-text">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Morning, Reimagined.</h2>
+            <p>Discover our daily-baked, plant-based treasures. From flaky croissants to seasonal tarts, every bite is an elemental joy.</p>
+        </div>
     </section>
 
-    <!-- Mini About: short intro linking to about page -->
-    <section class="home-about">
-      <h2>Our Story in Brief</h2>
-      <p><b>A small café with a big heart: sustainability, craftsmanship, and community are at our core.</b></p>
+    <section class="reveal-section reverse">
+        <div class="reveal-img">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80" alt="Cafe Interior">
+        </div>
+        <div class="reveal-text">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">A Haven.</h2>
+            <p>Beyond the brew. We've built a space for deep work, slow afternoons, and the heartbeat of the neighborhood.</p>
+        </div>
     </section>
 
-    <!-- Small gallery: placeholders for quick visual glimpse -->
-    <section class="home-gallery">
-      <div class="gallery-grid">
-        <img src="pastries.jpg" alt="Coffee and pastry">
-        <img src="community.jpg" alt="Baristas at work">
-        <img src="community-event.jpg" alt="Community event">
-      </div>
+    <section id="contact" class="contact-container">
+        <h2 style="text-align: center; margin-bottom: 30px;">Get in Touch</h2>
+        <form id="innateForm">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+        <div id="successMsg" style="display:none; text-align:center; color: #cf870b; margin-top: 20px; font-weight: bold;">
+            Message submitted successfully!
+        </div>
     </section>
+</main>
 
-    <!-- Events / What's on -->
-    <section class="home-events">
-      <h2>What's On</h2>
-      <div class="events-list">
-        <article class="event">
-          <h4>Weekend Coffee Tasting</h4>
-          <p>Sunday 10AM — Learn about single origins and brewing tips.</p>
-        </article>
-        <article class="event">
-          <h4>Community Open Mic</h4>
-          <p>Tuesday 7PM — Bring your creativity and meet neighbors.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- CTA / Featured Menu snippet -->
-    <section class="home-cta">
-      <div class="cta-inner">
-        <h3>Featured This Week</h3>
-        <p>Cardamom Latte & Lemon Poppyseed Scone — available for a limited time.</p>
-        <br>
-        <a href="contact.html" class="btn primary">Reserve a Table</a>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2026 Innate Vegan Café. All rights reserved.</p>
-  </footer>
+<footer style="padding: 50px; text-align: center; border-top: 1px solid #eee;">
+    <p style="font-size: 0.8rem; letter-spacing: 2px; color: #999;">&copy; 2026 INNATE CAFÉ.</p>
+</footer>
 
 <script>
-(function () {
-    // Selection of the toggle button and the menu
-    const navBtn = document.querySelector('.nav-toggle');
-    const navMenu = document.getElementById('navMenu');
-
-    if (navBtn && navMenu) {
-        navBtn.addEventListener('click', function (e) {
-            // 1. Toggle the 'open' class which shows the menu in CSS
-            navMenu.classList.toggle('open');
-
-            // 2. Update Accessibility (for screen readers and state)
-            const isExpanded = navMenu.classList.contains('open');
-            this.setAttribute('aria-expanded', isExpanded);
-        });
-
-        // 3. Close the menu if a user clicks outside of it (Great for mobile UX)
-        document.addEventListener('click', function (e) {
-            if (!navBtn.contains(e.target) && !navMenu.contains(e.target)) {
-                navMenu.classList.remove('open');
-                navBtn.setAttribute('aria-expanded', 'false');
-            }
-        });
-    }
-})();
+    // Form Interaction Logic
+    document.getElementById('innateForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        this.style.display = 'none'; // Hide form
+        document.getElementById('successMsg').style.display = 'block'; // Show success message
+    });
 </script>
+
 </body>
-              </html></html>
-
-
-
+</html>
